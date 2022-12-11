@@ -1,0 +1,21 @@
+[
+    {
+        "amount":20,
+        "sender":"davykanye@gmail.com",
+        "recipient":"09027088448"
+    },
+    {
+        "user": "davykanye@gmail.com",
+        "amount": 20
+    },
+    {
+        "email":"davykanye@gmail.com"
+    },
+    {
+        "amount":20,
+        "account": {
+            "account_number": "2018219672",
+            "bank_name": "Kuda Bank"
+        }
+    }
+]

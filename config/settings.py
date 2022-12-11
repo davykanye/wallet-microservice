@@ -23,6 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+a!f(td^tx8b(tp5dshga-h8-&+8zov*=i#9i#y7pv0xs1tr#+'
 
 # PAYSTACK KEYS
+PAYSTACK_AUTHORIZATION_KEY = 'sk_live_acd5555ca0991912f72b5e3eebe85509c4976f89'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Dependencies
     'rest_framework',
+    'drf_yasg',
     # APPS
     'core',
     'api'
