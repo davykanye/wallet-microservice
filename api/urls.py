@@ -12,7 +12,7 @@ urlpatterns = [
     # main
     path('transfer', transfer, name='transfer'),
     path('fund_wallet', fund_wallet, name='fund_wallet'),
-    path('transfer_out', transfer_out, name='transfer_out'),
+    path('cash_out', transfer_out, name='transfer_out'),
     # wallet
     path('create_wallet', create_wallet, name='create_wallet'),
     path('all_wallets', all_wallets, name='all_wallets'),
