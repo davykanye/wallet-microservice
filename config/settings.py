@@ -87,11 +87,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'diyagric_database',
+        'USER': 'diyagric_database_user',
+        'PASSWORD': 'cBfknUh0iJm3HlVZRgjd9Vu8iVCV9WpG',
+        'HOST': 'dpg-cek0vo9a6gdkdn6scsc0-a.frankfurt-postgres.render.com',
+        'PORT': 5432
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
