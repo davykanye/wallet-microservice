@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from core.models import Wallet, Transaction
 from core.serializers import WalletSerializer, TransactionSerializer
 from utils.transfer import Transfer
+from utils.tools import check_wallet
 
 # Create your views here.
 '''
@@ -99,9 +100,14 @@ def transfer_out(request):
     '''
     - ### **METHOD**: POST
     - ### **DESCRIPTION**: Transfer to External Bank Account
-    - ### **EXAMPLE**: {"amount":20, "account": {"account_number": "2018219672", "bank_name": "Kuda Bank"}}
+    - ### **EXAMPLE**: {"amount":20, "wallet": "davykanye@gmail.com", "account": {"account_number": "2018219672", "bank_name": "Kuda Bank"}}
     '''
     try:
+        # get wallet
+        wallet = Wallet.search_object.find(request.data['wallet'])
+        # check wallet validity
+        check_wallet(wallet, int(request.data['amount']))
+        # do the transfer
         account_data = request.data['account']
         paystack = Transfer('Test transfer')
         recipient = paystack._create_recipient(
@@ -109,8 +115,16 @@ def transfer_out(request):
         # print("Data is", recipient)
         paystack._set_recipient(recipient)
         paystack._transfer(int(request.data['amount']*100))
+        # deduct it from the wallet
+        wallet.amount -= request.data['amount']
+        wallet.save()
+        # create a transaction to record it
+        transaction = Transaction.objects.create(amount=int(
+            request.data['amount']), sender=request.data['wallet'], recipient=request.data['account']['account_number'])
+        transaction.save()
 
-        return Response(f"{request.data['amount']} transfered successfully to {account_data['account_number']}")
+        data = TransactionSerializer(transaction, many=False)
+        return Response(data.data)
     except Exception as e:
         return Response(
             {

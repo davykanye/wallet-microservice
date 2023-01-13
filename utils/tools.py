@@ -14,3 +14,8 @@ def get_bank_code(name):
             pass
 
     return output.get('code')
+
+
+def check_wallet(wallet, amount):
+    if amount > wallet:
+        raise Exception("Insufficient amount in wallet")
